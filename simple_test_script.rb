@@ -1,5 +1,5 @@
 require 'eyes_selenium'
-require 'webdrivers/chromedriver'
+require 'webdrivers'
 
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
@@ -13,25 +13,19 @@ visual_grid_runner = Applitools::Selenium::VisualGridRunner.new(1)
 
 # Create Eyes object with the runner, meaning it'll be a Visual Grid eyes.
 eyes = Applitools::Selenium::Eyes.new(runner: visual_grid_runner)
-eyes.send_dom=true
+
 # Initialize eyes Configuration
 eyes.configure do |conf|
   #  You can get your api key from the Applitools dashboard
   conf.api_key = ENV['APPLITOOLS_API_KEY']
   # create a new batch info instance and set it to the configuration
-  conf.batch = Applitools::BatchInfo.new("Demo Batch - Selenium Ruby - Ultrafast 2")
-  conf.app_name = 'rca test 2'
-  conf.test_name = 'rca test 2'
+  conf.batch = Applitools::BatchInfo.new("Demo Batch - Selenium Ruby - Ultrafast")
+  conf.app_name = 'Demo App - Selenium Ruby - Ultrafast'
+  conf.test_name = 'Smoke Test - Selenium Ruby - Ultrafast'
   conf.viewport_size = Applitools::RectangleSize.new(800, 600)
   # Add browsers with different viewports
   conf.add_browser(800, 600, BrowserType::CHROME)
       .add_browser(700, 500, BrowserType::FIREFOX)
-      .add_browser(800,600, BrowserType::SAFARI)
-      .add_browser(1600,1200, BrowserType::IE_11)
-      .add_browser(1024,768, BrowserType::EDGE_CHROMIUM)
-  #  Add mobile emulation devices in Portrait mode
-  conf.add_device_emulation(Devices::IPhoneX, Orientation::PORTRAIT)
-      .add_device_emulation(Devices::Pixel2, Orientation::PORTRAIT)
 end
 
  # ⭐️ Note to see visual bugs, run the test using the above URL for the 1st run.
